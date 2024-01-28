@@ -1,0 +1,17 @@
+const NOT_FOUND_MESSAGE = "Not found";
+const INTERNAL_ERROR_MESSAGE = "Internal server error";
+const SUCCESS_MESSAGE = "Success";
+const SUCCESS_NO_CONTENT_MESSAGE = "Success no content";
+const SIGNUP_SUCCESSFULLY_MESSAGE = "Sign up successfully";
+const CONFLICT_MESSAGE = "Username already exist";
+const UNAUTHORIZED_MESSAGE = "Unauthorized";
+
+module.exports = {
+  NOT_FOUND_MESSAGE,
+  INTERNAL_ERROR_MESSAGE,
+  SUCCESS_MESSAGE,
+  SUCCESS_NO_CONTENT_MESSAGE,
+  SIGNUP_SUCCESSFULLY_MESSAGE,
+  CONFLICT_MESSAGE,
+  UNAUTHORIZED_MESSAGE,
+};
