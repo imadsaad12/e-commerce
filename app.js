@@ -12,6 +12,7 @@ const authenticationRoutes = require("./routes/authenticationRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 const cookieParser = require("cookie-parser");
 const { AuthenticatedRouter } = require("./utilities/authenticated-route");
+const { sendEmail } = require("./utilities/email");
 const corsOptions = { credentials: true, origin: true };
 
 dotenv.config();
@@ -27,6 +28,7 @@ connectToDatabase();
 app.use("/products", productsRoutes);
 app.use("/auth", authenticationRoutes);
 app.get("/orders", ordersRoutes(AuthenticatedRouter()));
+app.get("/test", async () => sendEmail());
 
 app.use(errorHandler);
 app.listen(4000, () => logger.info("Server is running on port 4000 . . ."));
