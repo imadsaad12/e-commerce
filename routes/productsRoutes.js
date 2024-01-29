@@ -7,15 +7,17 @@ const {
   deleteProduct,
   updateProduct,
 } = require("../controllers/productsControllers");
+const { validateToken } = require("../middleware/authenticate");
+const { tryCatch } = require("../utilities/errors");
 
-router.post("/", addProduct);
+router.post("/", tryCatch(validateToken), addProduct);
 
 router.get("/", getAllProducts);
 
 router.get("/:id", getProduct);
 
-router.delete("/:id", deleteProduct);
+router.delete("/:id", tryCatch(validateToken), deleteProduct);
 
-router.put("/:id", updateProduct);
+router.put("/:id", tryCatch(validateToken), updateProduct);
 
 module.exports = router;

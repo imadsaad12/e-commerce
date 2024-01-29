@@ -10,6 +10,7 @@ const connectToDatabase = async () => {
     logger.info("connected to database");
   } catch (error) {
     logger.error("Failed to connect to database");
+    logger.error(error);
   }
 };
 module.exports = {

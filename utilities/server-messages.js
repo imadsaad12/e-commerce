@@ -5,6 +5,7 @@ const SUCCESS_NO_CONTENT_MESSAGE = "Success no content";
 const SIGNUP_SUCCESSFULLY_MESSAGE = "Sign up successfully";
 const CONFLICT_MESSAGE = "Username already exist";
 const UNAUTHORIZED_MESSAGE = "Unauthorized";
+const INVALID_CREDENTIALS_MESSAGE = "Invalid username or password";
 
 module.exports = {
   NOT_FOUND_MESSAGE,
@@ -14,4 +15,5 @@ module.exports = {
   SIGNUP_SUCCESSFULLY_MESSAGE,
   CONFLICT_MESSAGE,
   UNAUTHORIZED_MESSAGE,
+  INVALID_CREDENTIALS_MESSAGE,
 };
