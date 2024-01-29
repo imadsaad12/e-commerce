@@ -22,7 +22,7 @@ const sendEmail = async () => {
       service: "gmail",
       auth: {
         user: "imad.alhaj.saad@gmail.com",
-        pass: "asdasdasd",
+        pass: "imadalhajsaad12",
       },
     });
   } else if (provider === "outlook") {

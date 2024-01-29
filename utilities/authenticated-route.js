@@ -1,6 +1,6 @@
 const express = require("express");
-const { validateToken } = require("../middlewares/authenticate");
 const { tryCatch } = require("./errors");
+const { validateToken } = require("../middleware/authenticate");
 
 // This Function is used to authenticate every request.
 // So it will be validated once it pass the validateToken middleware
@@ -16,4 +16,4 @@ const AuthenticatedRouter = () => {
   return router;
 };
 
-module.exports = AuthenticatedRouter;
+module.exports = { AuthenticatedRouter };
