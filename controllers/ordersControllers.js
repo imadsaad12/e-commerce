@@ -18,12 +18,15 @@ const {
   deleteOrderById,
   updateOrderById,
 } = require("../services/ordersServices");
+const { sendEmail } = require("../utilities/email");
 
 const addOrder = async (req, res) => {
   try {
     const data = req.body;
+    const { email } = data;
 
     await createOrder(data);
+    // await sendEmail({ email:"" });
 
     logger.info("Order added successfully");
 
