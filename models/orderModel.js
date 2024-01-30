@@ -1,7 +1,12 @@
 const mongoose = require("mongoose");
+const uuid = require("uuid");
 
 const productSchema = new mongoose.Schema({
   productId: {
+    type: String,
+    required: true,
+  },
+  productImage: {
     type: String,
     required: true,
   },
@@ -40,16 +45,21 @@ const addressSchema = new mongoose.Schema({
 
 const ordersSchema = new mongoose.Schema(
   {
+    uuid: {
+      type: String,
+      default: () => uuid.v4(),
+      unique: true,
+    },
     clientFullName: {
       type: String,
       required: true,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
     email: {
-      type: Number,
+      type: String,
       required: true,
     },
     address: addressSchema,

@@ -43,82 +43,240 @@ const sendEmail = async ({ email, subject }) => {
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <style>
+          body {
+              width: 90%;
+              height: 100vh;
+              font-family: Arial, Helvetica, sans-serif;
+              align-self: center;
+              margin: 10px;
+              color: rgb(92, 92, 92);
+          }
+  
+          table {
+              width: 100%;
+          }
+  
+          th,
+          td {
+              padding: 10px;
+              text-align: left;
+          }
+  
+          h3 {
+              margin-top: 10px;
+              font-size: 1.5em;
+          }
+  
+          h5 {
+              color: rgb(188, 188, 188);
+              font-weight: bold;
+              font-size: 1.2em;
+          }
+  
+          button {
+              width: 120px;
+              height: 40px;
+              background-color: rgb(0, 185, 247);
+              color: white;
+              border-radius: 5px;
+              border: none;
+              font-size: 1em;
+          }
+  
+          p {
+              font-size: 1.2em;
+              font-weight: bold;
+          }
+  
+          img {
+              width: 50px;
+              height: 50px;
+              border-radius: 5px;
+          }
+  
+          .separator {
+              width: 90%;
+              height: 0.5px;
+              background-color: lightgray;
+              align-self: center;
+          }
+  
+  
+          .totals {
+              width: 50%;
+              margin-top: 25px;
+          }
+  
+          .totals div {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+          }
+  
+          .totals div:last-child {
+              width: 100%;
+              height: 1px;
+              background-color: lightgray;
+              align-self: center;
+          }
+  
+          /* Responsive Font Sizes */
+          @media only screen and (max-width: 600px) {
+              .separator-for-total {
+                  width: 65%
+              }
+  
+              h3 {
+                  font-size: 1.2em;
+              }
+  
+              h5 {
+                  font-size: 1em;
+              }
+  
+              button {
+                  font-size: 0.8em;
+              }
+  
+              p {
+                  font-size: 1em;
+              }
+          }
+      </style>
+      </style>
   </head>
   
-  <body style="width: 90%;height: 100vh;font-family: Arial, Helvetica, sans-serif;align-self: center;margin: 10px;">
+  <body>
   
-      <div style="display: flex;flex-direction: column;justify-content: space-between;width: 100%;">
-          <h2>My brand</h2>
-          <div style="height: auto;">
-              <h3 style="margin-top: 10px;">Thank you for your purchase !!</h3>
-              <h5 style="color: lightgray;">We're getting your order ready to be shipped. We will notify you when it has
-                  been sent</h5>
-          </div>
-          <div style="display: flex;flex-direction: row;align-items: center;width: 70%;margin-bottom: 20px;">
-              <button
-                  style="width: 150px;height: 50px;background-color: lightblue; color: white;border-radius: 10px;border-color: white;border:none;">
-                  view your order</button>
-          </div>
-  
-          <p>Order sumnmary</p>
-          <div style="width: 100%;height: auto;display: flex;flex-direction: column;gap: 10px;">
-              <div
-                  style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;height: 60px;">
-                  <div
-                      style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 42%;">
-                      <img style="width: 50px;height: 50px;border-radius: 5px;"
-                          src="https://guruofficialbrand.com/wp-content/uploads/2022/05/C52A75811-1536x1024.jpg" />
-                      <p>T-shirt x 2</p>
-                  </div>
-                  <p>$ 30.10</p>
-              </div>
-              <div style="width: 80%;height: 1px;background-color: lightgray;align-self: center;"></div>
-              <div style="width: 100%;height: auto;display: flex;flex-direction: column;gap: 10px;">
-                  <div
-                      style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;height: 60px;">
-                      <div
-                          style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 42%;">
-                          <img style="width: 50px;height: 50px;border-radius: 5px;"
-                              src="https://guruofficialbrand.com/wp-content/uploads/2022/05/C52A75811-1536x1024.jpg" />
-                          <p>T-shirt x 2</p>
-                      </div>
-                      <p>$ 30.10</p>
-                  </div>
-                  <div style="width: 80%;height: 1px;background-color: lightgray;align-self: center;"></div>
-                  <div style="width: 100%;height: auto;display: flex;flex-direction: column;gap: 10px;">
-                      <div
-                          style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;height: 60px;">
-                          <div
-                              style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;width: 42%;">
-                              <img style="width: 50px;height: 50px;border-radius: 5px;"
+      <table>
+          <tr>
+              <td colspan="2">
+                  <h3>My brand</h3>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <h3>Thank you for your purchase !!</h3>
+                  <h5>We're getting your order ready to be shipped. We will notify you when it has been sent</h5>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <button>View Your Order</button>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <p>Order summary</p>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <table>
+                      <tr>
+                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
+                              <img
                                   src="https://guruofficialbrand.com/wp-content/uploads/2022/05/C52A75811-1536x1024.jpg" />
-                              <p>T-shirt x 2</p>
-                          </div>
-                          <p>$ 30.10</p>
-                      </div>
-                      <div style="width: 80%;height: 1px;background-color: lightgray;align-self: center;"></div>
+                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">T-shirt with logo x 2</p>
+                          </td>
+                          <td style="font-weight: bold;">$30.01</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <div class="separator"></div>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <table>
+                      <tr>
+                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
+                              <img
+                                  src="https://static.zara.net/photos///2024/V/0/3/p/6917/680/800/2/w/563/6917680800_6_1_1.jpg?ts=1705310971424" />
+                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Pants green short x 3</p>
+                          </td>
+                          <td style="font-weight: bold;">$30.01</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <div class="separator"></div>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <table>
+                      <tr>
+                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
+                              <img src="https://thegivingmovement.com/cdn/shop/files/S202V7SAGGR0.jpg?v=1699164479" />
+                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Green cut pants x 1</p>
+                          </td>
+                          <td style="font-weight: bold;">$30.01</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <div class="separator"></div>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <table>
+                      <tr>
+                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
+                              <img
+                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2mvJVjTju3y9_txmPId0rt34VWKRm-rbiYbvb_4CoHg&s" />
+                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Gray short x 2</p>
+                          </td>
   
-                  </div>
-                  <div style="align-self: flex-end;width: 50%;margin-top: 25px;">
-                      <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-                          <p style="font-size: 13px; color: gray;">subTotoal</p>
-                          <p style="font-size: 13px; ">$30.00</p>
-                      </div>
-                      <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-                          <p style="font-size: 13px; color: gray;">Shipping</p>
-                          <p style="font-size: 13px;">$0.00</p>
-                      </div>
-                      <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-                          <p style="font-size: 13px; color: gray;">Taxes</p>
-                          <p style="font-size: 13px;">$0.00</p>
-                      </div>
-                      <div style="width: 100%;height: 1px;background-color: lightgray;align-self: center;"></div>
-                      <div style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
-                          <p style="font-size: 13px; color: gray;">Total</p>
-                          <p style="font-size: 13px;">$30.00</p>
-                      </div>
-                  </div>
-              </div>
+                          <td style="font-weight: bold;">$30.01</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <div class="separator"></div>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="2">
+                  <table class="totals">
+                      <tr>
+                          <td>Subtotal</td>
+                          <td>$30.00</td>
+                      </tr>
+                      <tr>
+                          <td>Shipping</td>
+                          <td>$0.00</td>
+                      </tr>
+  
+                      <tr>
+                          <td>Taxes</td>
+                          <td>$0.00</td>
+                      </tr>
+                      <tr>
+                          <td colspan="2">
+                              <div class="separator" style="width: 75%;"></div>
+                          </td>
+                      </tr>
+  
+                      <tr>
+                          <td>Total</td>
+                          <td>$30.00 USD</td>
+                      </tr>
+                  </table>
+              </td>
+          </tr>
+      </table>
   </body>
   
   </html>
