@@ -7,7 +7,6 @@ const { validateToken } = require("../middleware/authenticate");
 
 const AuthenticatedRouter = () => {
   const router = new express.Router({ mergeParams: true });
-
   router.all("/*", tryCatch(validateToken), (req, res, next) => {
     res.status(200);
     next();

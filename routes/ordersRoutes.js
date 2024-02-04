@@ -4,9 +4,12 @@ const {
   getOrderById,
   deleteOrder,
   updateOrder,
+  getStatistics,
 } = require("../controllers/ordersControllers");
 
 const ordersRoutes = (router) => {
+  router.get("/statistics", getStatistics);
+
   router.post("/", addOrder);
 
   router.get("/", getAllOrders);

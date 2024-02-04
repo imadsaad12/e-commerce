@@ -1,4 +1,5 @@
 const express = require("express");
+const multer = require("multer");
 const router = new express.Router();
 const {
   addProduct,
@@ -10,7 +11,10 @@ const {
 const { validateToken } = require("../middleware/authenticate");
 const { tryCatch } = require("../utilities/errors");
 
-router.post("/", tryCatch(validateToken), addProduct);
+const multerStorage = multer.memoryStorage();
+const multerUpload = multer({ storage: multerStorage });
+
+router.post("/", tryCatch(validateToken), multerUpload.any(), addProduct);
 
 router.get("/", getAllProducts);
 

@@ -17,6 +17,7 @@ const {
   getSingleOrder,
   deleteOrderById,
   updateOrderById,
+  getProfitsAndNumberOfProductsAndOrders,
 } = require("../services/ordersServices");
 const { sendEmail } = require("../utilities/email");
 
@@ -44,7 +45,8 @@ const addOrder = async (req, res) => {
 
 const getAllOrders = async (req, res) => {
   try {
-    const orders = await allOrders();
+    const { limit = -1 } = req.query;
+    const orders = await allOrders(limit);
 
     if (!orders) {
       logger.error("No orders found");
@@ -53,6 +55,23 @@ const getAllOrders = async (req, res) => {
 
     res.status(SUCCESS);
     res.json(orders);
+  } catch (error) {
+    const message = error.message || INTERNAL_ERROR_MESSAGE;
+    const status = error.statusCode || INTERNAL_SERVER;
+
+    logger.error(message);
+
+    res.status(status);
+    res.send(makeError(message, status));
+  }
+};
+
+const getStatistics = async (req, res) => {
+  try {
+    const data = await getProfitsAndNumberOfProductsAndOrders();
+
+    res.status(SUCCESS);
+    res.json(data);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
     const status = error.statusCode || INTERNAL_SERVER;
@@ -147,4 +166,5 @@ module.exports = {
   updateOrder,
   deleteOrder,
   getOrderById,
+  getStatistics,
 };

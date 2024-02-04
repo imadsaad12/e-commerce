@@ -22,8 +22,9 @@ const {
 const addProduct = async (req, res) => {
   try {
     const data = req.body;
-
-    await createProduct(data);
+    console.log(req.files);
+    console.log(req.body.images[0].url);
+    // await createProduct(data);
 
     logger.info("Product added successfully");
 

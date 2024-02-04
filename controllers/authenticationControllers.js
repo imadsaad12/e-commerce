@@ -17,14 +17,14 @@ const {
 
 const signIn = async (req, res) => {
   try {
-    const { user_name, password } = req.body;
+    const { userName, password } = req.body;
     console.log(process.env.SECRET_KEY);
 
-    if (user_name !== "super-admin" || password !== "Password@123") {
+    if (userName !== "super-admin" || password !== "Password@123") {
       throw makeError(INVALID_CREDENTIALS_MESSAGE, UNAUTHORIZED);
     }
     const accessToken = jwt.sign(
-      { user_name, role_id: 1 },
+      { userName, role_id: 1 },
       process.env.SECRET_KEY,
       {
         expiresIn: "1h",
@@ -32,7 +32,7 @@ const signIn = async (req, res) => {
     );
 
     const refreshToken = jwt.sign(
-      { user_name, role_id: 1 },
+      { userName, role_id: 1 },
       process.env.REFRESH_TOKEN_SECRET_KEY,
       {
         expiresIn: "1d",
@@ -93,13 +93,13 @@ const generateAccessToken = async (req, res) => {
 
     logger.info("Validating refresh token");
 
-    const { user_name, role_id } = jwt.verify(
+    const { userName, role_id } = jwt.verify(
       refreshToken,
       process.env.REFRESH_TOKEN_SECRET_KEY
     );
 
     const accessToken = jwt.sign(
-      { user_name, role_id },
+      { userName, role_id },
       process.env.SECRET_KEY,
       {
         expiresIn: "1h",

@@ -27,10 +27,7 @@ connectToDatabase();
 
 app.use("/products", productsRoutes);
 app.use("/auth", authenticationRoutes);
-app.get("/orders", ordersRoutes(AuthenticatedRouter()));
-app.get("/test", async () =>
-  sendEmail({ email: "saabhadi285@gmail.com", subject: "asasaa" })
-);
+app.use("/orders", ordersRoutes(AuthenticatedRouter()));
 
 app.use(errorHandler);
 app.listen(4000, () => logger.info("Server is running on port 4000 . . ."));

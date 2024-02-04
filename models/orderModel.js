@@ -64,6 +64,10 @@ const ordersSchema = new mongoose.Schema(
     },
     address: addressSchema,
     products: [productSchema],
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true }
 );
