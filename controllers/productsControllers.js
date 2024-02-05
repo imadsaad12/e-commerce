@@ -26,13 +26,18 @@ const {
 
 const addProduct = async (req, res) => {
   try {
-    const data = req.body;
-    // await createProduct(data);
+    const { images, ...rest } = req.body;
+    const files = req.files;
+    const uploadedFiles = await uploadImageToGCP(files);
 
-    const uploadedFiles = await uploadImageToGCP(req.files);
+    const imagesWithURLs = images.map((image, index) => ({
+      ...image,
+      url: uploadedFiles[index],
+    }));
 
     // deleteImageFromGCP("x");
 
+    await createProduct({ images: imagesWithURLs, ...rest });
     logger.info("Product added successfully");
 
     res.status(SUCCESS_NO_CONTENT);
