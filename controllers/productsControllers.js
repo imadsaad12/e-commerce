@@ -18,13 +18,25 @@ const {
   INTERNAL_ERROR_MESSAGE,
   NOT_FOUND_MESSAGE,
 } = require("../utilities/server-messages");
+const { Storage } = require("@google-cloud/storage");
+const {
+  uploadImageToGCP,
+  deleteImageFromGCP,
+} = require("../utilities/GCP-images");
+
+const storage = new Storage({
+  keyFilename: "database/ecommerce-413310-cfb062b4a357.json",
+  projectId: process.env.GCP_PROJECT_ID,
+});
 
 const addProduct = async (req, res) => {
   try {
     const data = req.body;
-    console.log(req.files);
-    console.log(req.body.images[0].url);
     // await createProduct(data);
+
+    const uploadedFiles = await uploadImageToGCP(req.files);
+
+    // deleteImageFromGCP("x");
 
     logger.info("Product added successfully");
 

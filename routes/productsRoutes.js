@@ -10,7 +10,6 @@ const {
 } = require("../controllers/productsControllers");
 const { validateToken } = require("../middleware/authenticate");
 const { tryCatch } = require("../utilities/errors");
-
 const multerStorage = multer.memoryStorage();
 const multerUpload = multer({ storage: multerStorage });
 
