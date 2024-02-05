@@ -24,11 +24,6 @@ const {
   deleteImageFromGCP,
 } = require("../utilities/GCP-images");
 
-const storage = new Storage({
-  keyFilename: "database/ecommerce-413310-cfb062b4a357.json",
-  projectId: process.env.GCP_PROJECT_ID,
-});
-
 const addProduct = async (req, res) => {
   try {
     const data = req.body;
