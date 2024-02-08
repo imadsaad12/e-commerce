@@ -34,9 +34,7 @@ const addProduct = async (req, res) => {
       ...image,
       url: uploadedFiles[index],
     }));
-
-    // deleteImageFromGCP("x");
-
+    console.log(imagesWithURLs);
     await createProduct({ images: imagesWithURLs, ...rest });
     logger.info("Product added successfully");
 
@@ -54,7 +52,7 @@ const addProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const { category } = req.query;
+    const { category = null } = req.query;
     const products = await allProducts(category);
 
     if (!products) {
