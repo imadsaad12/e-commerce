@@ -3,10 +3,10 @@ const { deleteImageFromGCP } = require("../utilities/GCP-images");
 
 const createProduct = async (data) => Products.create(data);
 
-const allProducts = async (category) => {
+const allProducts = async (category, type) => {
   let products;
   if (category) {
-    products = await Products.find({ category });
+    products = await Products.find({ category, type });
   } else {
     products = await Products.find();
   }
@@ -15,7 +15,15 @@ const allProducts = async (category) => {
 
 const getSingleProduct = async (id) => Products.findById(id);
 
-const deleteProductById = async (id) => Products.findOneAndDelete(id);
+const deleteProductById = async (_id) => {
+  const { images } = await Products.findOne({ _id });
+
+  images.map(async ({ url }) => {
+    await deleteImageFromGCP(url);
+  });
+
+  return Products.findOneAndDelete(_id);
+};
 
 const updateProductById = async (id, data) =>
   Products.findOneAndUpdate(
@@ -25,14 +33,14 @@ const updateProductById = async (id, data) =>
     }
   );
 
-const updateManyProducts = (oldCategory, newCategory) =>
+const updateManyProducts = (oldCategory, newCategory, type) =>
   Products.updateMany(
-    { category: oldCategory },
+    { category: oldCategory, type },
     { $set: { category: newCategory } }
   );
 
-const deleteManyProducts = async (categoryToDelete) => {
-  const products = await allProducts(categoryToDelete);
+const deleteManyProducts = async ({ category, type }) => {
+  const products = await allProducts(category, type);
 
   products.map(({ images }) => {
     images.map(async ({ url }) => {
@@ -40,7 +48,7 @@ const deleteManyProducts = async (categoryToDelete) => {
     });
   });
 
-  await Products.deleteMany({ category: categoryToDelete });
+  await Products.deleteMany({ category, type });
 };
 
 module.exports = {

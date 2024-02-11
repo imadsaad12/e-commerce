@@ -21,6 +21,6 @@ router.get("/:id", getProduct);
 
 router.delete("/:id", tryCatch(validateToken), deleteProduct);
 
-router.put("/:id", tryCatch(validateToken), updateProduct);
+router.put("/:id", tryCatch(validateToken), multerUpload.any(), updateProduct);
 
 module.exports = router;

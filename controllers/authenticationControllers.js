@@ -63,6 +63,9 @@ const signIn = async (req, res) => {
 
 const validateToken = async (req, res) => {
   try {
+    if (!req?.headers?.Authorization)
+      throw makeError(INVALID_CREDENTIALS_MESSAGE, UNAUTHORIZED);
+
     const { Authorization } = req.headers;
     const accessToken = Authorization.split(" ")[1];
 
@@ -86,7 +89,7 @@ const validateToken = async (req, res) => {
 
 const generateAccessToken = async (req, res) => {
   try {
-    const { refreshToken } = req.cookies;
+    const { refreshToken } = req?.cookies;
     if (isEmpty(refreshToken)) {
       throw makeError(TOKEN_EXPIRED_OR_MISSED_MESSAGE, TOKEN_EXPIRED_OR_MISSED);
     }

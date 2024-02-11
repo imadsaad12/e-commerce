@@ -68,7 +68,7 @@ const getAllCategories = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     const category = await getSingleCategory(id);
 
     if (!category) {
@@ -76,7 +76,7 @@ const deleteCategory = async (req, res) => {
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
     }
 
-    await deleteManyProducts(category.category);
+    await deleteManyProducts(category);
     await deleteCategoryById(id);
 
     logger.info("Category deleted successfully");
@@ -104,9 +104,9 @@ const updateCategory = async (req, res) => {
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
     }
 
-    await updateCategoryById(id, data);
+    await updateCategoryById(id, { category: newCategory });
 
-    await updateManyProducts(category.category, newCategory);
+    await updateManyProducts(category.category, newCategory, category.type);
 
     logger.info("Category updated successfully");
 

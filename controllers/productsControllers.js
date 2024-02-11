@@ -7,6 +7,7 @@ const {
 } = require("../services/productsServices");
 const logger = require("../utilities/logger");
 const { makeError } = require("../utilities/errors");
+const { isEmpty } = require("lodash");
 const {
   SUCCESS,
   INTERNAL_SERVER,
@@ -52,7 +53,7 @@ const addProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const { category = null } = req.query;
+    const { category = null, type = null } = req.query;
     const products = await allProducts(category);
 
     if (!products) {
@@ -126,7 +127,8 @@ const deleteProduct = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    data = req.body;
+    const data = req.body;
+    const { images } = data;
 
     const product = await getSingleProduct(id);
 
@@ -135,10 +137,47 @@ const updateProduct = async (req, res) => {
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
     }
 
-    await updateProductById(id, data);
-    logger.info("Product added successfully");
+    const newImages = images.map(({ id, ...rest }) => {
+      const file = req.files.find((elm) => id === elm.originalname);
 
-    res.status = SUCCESS_NO_CONTENT;
+      if (!isEmpty(file)) {
+        return { id, file, ...rest };
+      }
+      return { id, file: undefined, ...rest };
+    });
+
+    const startsWithBlob = /^blob/i;
+    const stringStartsWithBlob = (testString) =>
+      startsWithBlob.test(testString);
+
+    const uploadImage = async ({ url, file = {}, ...rest }) => {
+      if (rest.isDeleted === "true") {
+        if (!stringStartsWithBlob(url)) {
+          await deleteImageFromGCP(url);
+          return { ...rest };
+        }
+      } else {
+        if (typeof file === "object" && !isEmpty(file)) {
+          const [uploadedUrl] = await uploadImageToGCP([file]);
+          return { isDeleted: "false", url: uploadedUrl, ...rest };
+        } else {
+          return { isDeleted: "false", url, ...rest };
+        }
+      }
+    };
+    const uploadPromises = newImages.map(uploadImage);
+
+    const updatedImages = await Promise.all(uploadPromises);
+
+    data.images = updatedImages.filter((elm) => elm?.isDeleted === "false");
+
+    console.log(data.images);
+
+    await updateProductById(id, data);
+
+    logger.info("Product updated successfully");
+
+    res.status(SUCCESS_NO_CONTENT);
     res.send(SUCCESS_MESSAGE);
   } catch (error) {
     const message = error.message || INTERNAL_ERROR_MESSAGE;
