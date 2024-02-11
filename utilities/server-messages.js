@@ -6,6 +6,7 @@ const SIGNUP_SUCCESSFULLY_MESSAGE = "Sign up successfully";
 const CONFLICT_MESSAGE = "Username already exist";
 const UNAUTHORIZED_MESSAGE = "Unauthorized";
 const INVALID_CREDENTIALS_MESSAGE = "Invalid username or password";
+TOKEN_EXPIRED_OR_MISSED_MESSAGE = "Token missed or expired";
 
 module.exports = {
   NOT_FOUND_MESSAGE,
@@ -16,4 +17,5 @@ module.exports = {
   CONFLICT_MESSAGE,
   UNAUTHORIZED_MESSAGE,
   INVALID_CREDENTIALS_MESSAGE,
+  TOKEN_EXPIRED_OR_MISSED_MESSAGE,
 };

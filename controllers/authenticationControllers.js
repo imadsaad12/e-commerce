@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const logger = require("../utilities/logger");
 const { makeError } = require("../utilities/errors");
-const { isEmpty } = require("lodash");
+const { isEmpty, isEqual, isUndefined } = require("lodash");
 const {
   INTERNAL_ERROR_MESSAGE,
   INVALID_CREDENTIALS_MESSAGE,
@@ -90,7 +90,7 @@ const validateToken = async (req, res) => {
 const generateAccessToken = async (req, res) => {
   try {
     const { refreshToken } = req?.cookies;
-    if (isEmpty(refreshToken)) {
+    if (isUndefined(refreshToken)) {
       throw makeError(TOKEN_EXPIRED_OR_MISSED_MESSAGE, TOKEN_EXPIRED_OR_MISSED);
     }
 
