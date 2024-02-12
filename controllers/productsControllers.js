@@ -54,7 +54,7 @@ const addProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   try {
     const { category = null, type = null } = req.query;
-    const products = await allProducts(category);
+    const products = await allProducts(category, type);
 
     if (!products) {
       logger.error("No products found");
