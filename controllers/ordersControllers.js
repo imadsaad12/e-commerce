@@ -24,10 +24,10 @@ const { sendEmail } = require("../utilities/email");
 const addOrder = async (req, res) => {
   try {
     const data = req.body;
-    const { email } = data;
+    const { email, products } = data;
 
     await createOrder(data);
-    // await sendEmail({ email:"" });
+    await sendEmail({ email, products });
 
     logger.info("Order added successfully");
 

@@ -1,20 +1,20 @@
+const express = require("express");
 const {
   createCategory,
   getAllCategories,
   deleteCategory,
   updateCategory,
 } = require("../controllers/categoriesControllers");
+const { tryCatch } = require("../utilities/errors");
+const { validateToken } = require("../middleware/authenticate");
+const router = new express.Router();
 
-const categoriesRoutes = (router) => {
-  router.post("/", createCategory);
+router.post("/", tryCatch(validateToken), createCategory);
 
-  router.get("/", getAllCategories);
+router.get("/", getAllCategories);
 
-  router.delete("/:id", deleteCategory);
+router.delete("/:id", tryCatch(validateToken), deleteCategory);
 
-  router.put("/:id", updateCategory);
+router.put("/:id", tryCatch(validateToken), updateCategory);
 
-  return router;
-};
-
-module.exports = categoriesRoutes;
+module.exports = router;

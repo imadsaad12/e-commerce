@@ -7,7 +7,7 @@ const extractProvider = (email) => {
   return match ? match[1] : null;
 };
 
-const sendEmail = async ({ email, subject }) => {
+const sendEmail = async ({ email, products }) => {
   const provider = extractProvider(email);
 
   if (!provider) {
@@ -37,211 +37,156 @@ const sendEmail = async ({ email, subject }) => {
   } else {
     throw new Error("Unsupported email provider");
   }
-  const dynamicHTML = (products) => `
-  <html lang="en">
 
+  const generateDynamicHTML = (products) => `
+  <html lang="en">
   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <style>
-          body {
-              width: 90%;
-              height: 100vh;
-              font-family: Arial, Helvetica, sans-serif;
-              align-self: center;
-              margin: 10px;
-              color: rgb(92, 92, 92);
+  <style>
+      body {
+          width: 90%;
+          height: 100vh;
+          font-family: Arial, Helvetica, sans-serif;
+          align-self: center;
+          margin: 10px;
+          color: rgb(92, 92, 92);
+      }
+
+      table {
+          width: 100%;
+      }
+
+      th,
+      td {
+          padding: 10px;
+          text-align: left;
+      }
+
+      h3 {
+          margin-top: 10px;
+          font-size: 1.5em;
+      }
+
+      h5 {
+          color: rgb(188, 188, 188);
+          font-weight: bold;
+          font-size: 1.2em;
+      }
+
+      button {
+          width: 120px;
+          height: 40px;
+          background-color: rgb(0, 185, 247);
+          color: white;
+          border-radius: 5px;
+          border: none;
+          font-size: 1em;
+      }
+
+      p {
+          font-size: 1.2em;
+          font-weight: bold;
+      }
+
+      img {
+          width: 50px;
+          height: 50px;
+          border-radius: 5px;
+      }
+
+      .separator {
+          width: 90%;
+          height: 0.5px;
+          background-color: lightgray;
+          align-self: center;
+      }
+
+
+      .totals {
+          width: 50%;
+          margin-top: 25px;
+      }
+
+      .totals div {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .totals div:last-child {
+          width: 100%;
+          height: 1px;
+          background-color: lightgray;
+          align-self: center;
+      }
+
+      /* Responsive Font Sizes */
+      @media only screen and (max-width: 600px) {
+          .separator-for-total {
+              width: 65%
           }
-  
-          table {
-              width: 100%;
-          }
-  
-          th,
-          td {
-              padding: 10px;
-              text-align: left;
-          }
-  
+
           h3 {
-              margin-top: 10px;
-              font-size: 1.5em;
-          }
-  
-          h5 {
-              color: rgb(188, 188, 188);
-              font-weight: bold;
               font-size: 1.2em;
           }
-  
-          button {
-              width: 120px;
-              height: 40px;
-              background-color: rgb(0, 185, 247);
-              color: white;
-              border-radius: 5px;
-              border: none;
+
+          h5 {
               font-size: 1em;
           }
-  
+
+          button {
+              font-size: 0.8em;
+          }
+
           p {
-              font-size: 1.2em;
-              font-weight: bold;
+              font-size: 1em;
           }
-  
-          img {
-              width: 50px;
-              height: 50px;
-              border-radius: 5px;
-          }
-  
-          .separator {
-              width: 90%;
-              height: 0.5px;
-              background-color: lightgray;
-              align-self: center;
-          }
-  
-  
-          .totals {
-              width: 50%;
-              margin-top: 25px;
-          }
-  
-          .totals div {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-          }
-  
-          .totals div:last-child {
-              width: 100%;
-              height: 1px;
-              background-color: lightgray;
-              align-self: center;
-          }
-  
-          /* Responsive Font Sizes */
-          @media only screen and (max-width: 600px) {
-              .separator-for-total {
-                  width: 65%
-              }
-  
-              h3 {
-                  font-size: 1.2em;
-              }
-  
-              h5 {
-                  font-size: 1em;
-              }
-  
-              button {
-                  font-size: 0.8em;
-              }
-  
-              p {
-                  font-size: 1em;
-              }
-          }
-      </style>
-      </style>
-  </head>
-  
+      }
+  </style>
+</head>
   <body>
-  
       <table>
           <tr>
               <td colspan="2">
-                  <h3>My brand</h3>
+                  <h3>Point Null</h3>
               </td>
           </tr>
           <tr>
               <td colspan="2">
-                  <h3>Thank you for your purchase !!</h3>
-                  <h5>We're getting your order ready to be shipped. We will notify you when it has been sent</h5>
+                  <h3>Thank you for your shopping with us !!</h3>
+                  <h5>Your order is currently being prepared for shipment.We'll keep you updated and notify you as soon as it's on its way.</h5>
               </td>
           </tr>
-          <tr>
-              <td colspan="2">
-                  <button>View Your Order</button>
-              </td>
-          </tr>
+
           <tr>
               <td colspan="2">
                   <p>Order summary</p>
               </td>
           </tr>
-          <tr>
+          ${products
+            .map(
+              (product) => `
+            <tr>
               <td colspan="2">
-                  <table>
-                      <tr>
-                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
-                              <img
-                                  src="https://guruofficialbrand.com/wp-content/uploads/2022/05/C52A75811-1536x1024.jpg" />
-                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">T-shirt with logo x 2</p>
-                          </td>
-                          <td style="font-weight: bold;">$30.01</td>
-                      </tr>
-                  </table>
+                <table>
+                  <tr>
+                    <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
+                      <img src="https://storage.googleapis.com/ecommerce-bucket-testing/${
+                        product.productImage
+                      }" />
+                      <p style="font-weight: bold; margin-left: 30px;font-size: 14px;text-align: right;text-transform:capitalize">${
+                        product.productName
+                      } x ${product.quantity}</p>
+                    </td>
+                    <td style="font-weight: bold;text-align: center;">$${product.price.toFixed(
+                      2
+                    )}</td>
+                  </tr>
+                </table>
               </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <div class="separator"></div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <table>
-                      <tr>
-                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
-                              <img
-                                  src="https://static.zara.net/photos///2024/V/0/3/p/6917/680/800/2/w/563/6917680800_6_1_1.jpg?ts=1705310971424" />
-                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Pants green short x 3</p>
-                          </td>
-                          <td style="font-weight: bold;">$30.01</td>
-                      </tr>
-                  </table>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <div class="separator"></div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <table>
-                      <tr>
-                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
-                              <img src="https://thegivingmovement.com/cdn/shop/files/S202V7SAGGR0.jpg?v=1699164479" />
-                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Green cut pants x 1</p>
-                          </td>
-                          <td style="font-weight: bold;">$30.01</td>
-                      </tr>
-                  </table>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <div class="separator"></div>
-              </td>
-          </tr>
-          <tr>
-              <td colspan="2">
-                  <table>
-                      <tr>
-                          <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
-                              <img
-                                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2mvJVjTju3y9_txmPId0rt34VWKRm-rbiYbvb_4CoHg&s" />
-                              <p style="font-weight: bold; margin-left: 15px;font-size: 14px;">Gray short x 2</p>
-                          </td>
-  
-                          <td style="font-weight: bold;">$30.01</td>
-                      </tr>
-                  </table>
-              </td>
-          </tr>
+            </tr>
+          `
+            )
+            .join("")}
           <tr>
               <td colspan="2">
                   <div class="separator"></div>
@@ -252,26 +197,28 @@ const sendEmail = async ({ email, subject }) => {
                   <table class="totals">
                       <tr>
                           <td>Subtotal</td>
-                          <td>$30.00</td>
+                          <td>$${products
+                            .reduce((acc, curr) => acc + curr.price, 0)
+                            .toFixed(2)}</td>
                       </tr>
                       <tr>
                           <td>Shipping</td>
                           <td>$0.00</td>
                       </tr>
-  
                       <tr>
                           <td>Taxes</td>
                           <td>$0.00</td>
                       </tr>
                       <tr>
                           <td colspan="2">
-                              <div class="separator" style="width: 75%;"></div>
+                              <div class="separator" style="min-width: 200px;width:75%"></div>
                           </td>
                       </tr>
-  
                       <tr>
-                          <td>Total</td>
-                          <td>$30.00 USD</td>
+                          <td style="font-weight:bold">Total</td>
+                          <td style="font-weight:bold">$${products
+                            .reduce((acc, curr) => acc + curr.price, 0)
+                            .toFixed(2)}</td>
                       </tr>
                   </table>
               </td>
@@ -282,14 +229,12 @@ const sendEmail = async ({ email, subject }) => {
   </html>
 `;
 
-  const products = [{ name: "T-shirt", quantity: 3, price: "25$" }];
-
-  const htmlTemplate = dynamicHTML(products);
+  const htmlTemplate = generateDynamicHTML(products);
 
   const mailOptions = {
     from: "imad.alhaj.saad@gmail.com",
     to: email,
-    subject,
+    subject: "Your Order is on its way !!",
     html: htmlTemplate,
   };
 

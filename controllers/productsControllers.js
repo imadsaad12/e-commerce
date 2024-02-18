@@ -35,7 +35,7 @@ const addProduct = async (req, res) => {
       ...image,
       url: uploadedFiles[index],
     }));
-    console.log(imagesWithURLs);
+
     await createProduct({ images: imagesWithURLs, ...rest });
     logger.info("Product added successfully");
 
