@@ -9,11 +9,13 @@ const {
 } = require("../controllers/ordersControllers");
 const { validateToken } = require("../middleware/authenticate");
 const { tryCatch } = require("../utilities/errors");
+const { addOrderSchema } = require("../validations/orderValidation");
+const { validate } = require("express-validation");
 const router = new express.Router();
 
 router.get("/statistics", tryCatch(validateToken), getStatistics);
 
-router.post("/", addOrder);
+router.post("/", tryCatch(validate(addOrderSchema)), addOrder);
 
 router.get("/", tryCatch(validateToken), getAllOrders);
 

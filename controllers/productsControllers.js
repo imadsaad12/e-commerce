@@ -171,8 +171,6 @@ const updateProduct = async (req, res) => {
 
     data.images = updatedImages.filter((elm) => elm?.isDeleted === "false");
 
-    console.log(data.images);
-
     await updateProductById(id, data);
 
     logger.info("Product updated successfully");

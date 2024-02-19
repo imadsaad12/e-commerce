@@ -20,11 +20,27 @@ const {
   getProfitsAndNumberOfProductsAndOrders,
 } = require("../services/ordersServices");
 const { sendEmail } = require("../utilities/email");
+const { getSingleProduct } = require("../services/productsServices");
 
 const addOrder = async (req, res) => {
   try {
     const data = req.body;
-    const { email, products } = data;
+    const { email, products, totalPrice } = data;
+    let calculatedTotalPrice = 0;
+
+    await Promise.all(
+      products.map(async ({ productId, quantity }) => {
+        const product = await getSingleProduct(productId);
+
+        if (!product) throw makeError("Product Not Found", 404);
+
+        calculatedTotalPrice += product.price * quantity;
+      })
+    );
+
+    if (totalPrice !== calculatedTotalPrice) {
+      throw makeError("Prices does not match");
+    }
 
     await createOrder(data);
     await sendEmail({ email, products });
