@@ -43,7 +43,7 @@ const addProduct = async (req, res) => {
       sizes: filteredSizes,
       ...rest,
     });
-    
+
     logger.info("Product added successfully");
 
     res.status(SUCCESS_NO_CONTENT);
@@ -177,6 +177,7 @@ const updateProduct = async (req, res) => {
     const updatedImages = await Promise.all(uploadPromises);
 
     data.images = updatedImages.filter((elm) => elm?.isDeleted === "false");
+    data.sizes = data?.sizes?.filter((elm) => elm !== null);
 
     await updateProductById(id, data);
 
