@@ -27,7 +27,7 @@ const {
 
 const addProduct = async (req, res) => {
   try {
-    const { images, ...rest } = req.body;
+    const { images, sizes, ...rest } = req.body;
     const files = req.files;
     const uploadedFiles = await uploadImageToGCP(files);
 
@@ -36,7 +36,14 @@ const addProduct = async (req, res) => {
       url: uploadedFiles[index],
     }));
 
-    await createProduct({ images: imagesWithURLs, ...rest });
+    const filteredSizes = sizes.filter((size) => size !== null);
+
+    await createProduct({
+      images: imagesWithURLs,
+      sizes: filteredSizes,
+      ...rest,
+    });
+    
     logger.info("Product added successfully");
 
     res.status(SUCCESS_NO_CONTENT);
@@ -54,7 +61,7 @@ const addProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
   try {
     const { category = null, type = null } = req.query;
-    const products = await allProducts(category, type);
+    let products = await allProducts(category, type);
 
     if (!products) {
       logger.error("No products found");
