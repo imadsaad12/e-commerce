@@ -24,7 +24,7 @@ const getProfitsAndNumberOfProductsAndOrders = async () => {
     },
   ]);
 
-  return { profits: profits.totalProfits, numberOfOrders, numberOfProducts };
+  return { profits: profits?.totalProfits, numberOfOrders, numberOfProducts };
 };
 
 const getSingleOrder = async (id) => Order.findById(id);

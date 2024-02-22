@@ -35,7 +35,7 @@ const signIn = async (req, res) => {
       { userName, role_id: 1 },
       process.env.REFRESH_TOKEN_SECRET_KEY,
       {
-        expiresIn: "1d",
+        expiresIn: "365d",
       }
     );
 
