@@ -27,25 +27,25 @@ const signIn = async (req, res) => {
       { userName, role_id: 1 },
       process.env.SECRET_KEY,
       {
-        expiresIn: "1h",
-      }
-    );
-
-    const refreshToken = jwt.sign(
-      { userName, role_id: 1 },
-      process.env.REFRESH_TOKEN_SECRET_KEY,
-      {
         expiresIn: "365d",
       }
     );
 
+    // const refreshToken = jwt.sign(
+    //   { userName, role_id: 1 },
+    //   process.env.REFRESH_TOKEN_SECRET_KEY,
+    //   {
+    //     expiresIn: "365d",
+    //   }
+    // );
+
     logger.info(`Logged in successfully`);
 
     res.status(SUCCESS);
-    res.cookie("refreshToken", refreshToken, {
-      httpOnly: true,
-      sameSite: "strict",
-    });
+    // res.cookie("refreshToken", refreshToken, {
+    //   httpOnly: true,
+    //   sameSite: "strict",
+    // });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       sameSite: "strict",
