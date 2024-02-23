@@ -68,7 +68,7 @@ const getAllCategories = async (req, res) => {
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
+
     const category = await getSingleCategory(id);
 
     if (!category) {

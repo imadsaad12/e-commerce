@@ -50,6 +50,10 @@ const productsSchema = new mongoose.Schema(
     },
     sizes: [availableItem],
     images: [image],
+    isHighPriority: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

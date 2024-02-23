@@ -27,7 +27,7 @@ const {
 
 const addProduct = async (req, res) => {
   try {
-    const { images, sizes, ...rest } = req.body;
+    const { images, sizes, isHighPriority, ...rest } = req.body;
     const files = req.files;
     const uploadedFiles = await uploadImageToGCP(files);
 
@@ -41,6 +41,7 @@ const addProduct = async (req, res) => {
     await createProduct({
       images: imagesWithURLs,
       sizes: filteredSizes,
+      isHighPriority: isHighPriority === "true",
       ...rest,
     });
 
