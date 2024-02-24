@@ -19,7 +19,6 @@ const {
   INTERNAL_ERROR_MESSAGE,
   NOT_FOUND_MESSAGE,
 } = require("../utilities/server-messages");
-const { Storage } = require("@google-cloud/storage");
 const {
   uploadImageToGCP,
   deleteImageFromGCP,

@@ -9,6 +9,10 @@ const {
   updateManyProducts,
   deleteManyProducts,
 } = require("../services/productsServices");
+const {
+  uploadImageToGCP,
+  deleteImageFromGCP,
+} = require("../utilities/GCP-images");
 const { makeError } = require("../utilities/errors");
 const logger = require("../utilities/logger");
 const {
@@ -26,8 +30,10 @@ const {
 const createCategory = async (req, res) => {
   try {
     const data = req.body;
+    const files = req.files;
+    const [imageUrl] = await uploadImageToGCP(files);
 
-    await addCategory(data);
+    await addCategory({ ...data, imageUrl });
 
     logger.info("Category added successfully");
 
@@ -97,14 +103,22 @@ const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
     const { category: newCategory } = req.body;
+    const files = req.files;
     const category = await getSingleCategory(id);
 
     if (!category) {
       logger.error("Category not found");
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
     }
+    let payload = { category: newCategory };
 
-    await updateCategoryById(id, { category: newCategory });
+    if (files && files.length === 1) {
+      await deleteImageFromGCP(category.imageUrl);
+      const [imageUrl] = await uploadImageToGCP(files);
+      payload = { ...payload, imageUrl };
+    }
+
+    await updateCategoryById(id, payload);
 
     await updateManyProducts(category.category, newCategory, category.type);
 
