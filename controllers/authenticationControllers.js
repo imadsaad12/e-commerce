@@ -23,11 +23,18 @@ const signIn = async (req, res) => {
     if (userName !== "super-admin" || password !== "Password@123") {
       throw makeError(INVALID_CREDENTIALS_MESSAGE, UNAUTHORIZED);
     }
+    const currentDate = new Date();
+
+    const expirationDate = new Date(currentDate);
+    expirationDate.setFullYear(currentDate.getFullYear() + 1);
+
+    const expTimestamp = Math.floor(expirationDate.getTime() / 1000);
+
     const accessToken = jwt.sign(
       { userName, role_id: 1 },
       process.env.SECRET_KEY,
       {
-        expiresIn: "365d",
+        expiresIn: expTimestamp,
       }
     );
 
