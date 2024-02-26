@@ -60,8 +60,17 @@ const addProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const { category = null, type = null } = req.query;
-    let products = await allProducts(category, type);
+    const {
+      category = null,
+      type = null,
+      getProductsWithHightPriority = null,
+    } = req.query;
+
+    let products = await allProducts(
+      category,
+      type,
+      getProductsWithHightPriority
+    );
 
     if (!products) {
       logger.error("No products found");
@@ -86,7 +95,7 @@ const getProduct = async (req, res) => {
     const { id } = req.params;
 
     const product = await getSingleProduct(id);
-
+    console.log(product);
     if (!product) {
       logger.error("No products found");
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);

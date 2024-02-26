@@ -15,9 +15,9 @@ const multerUpload = multer({ storage: multerStorage });
 
 router.post("/", tryCatch(validateToken), multerUpload.any(), addProduct);
 
-router.get("/", getAllProducts);
-
 router.get("/:id", getProduct);
+
+router.get("/", getAllProducts);
 
 router.delete("/:id", tryCatch(validateToken), deleteProduct);
 

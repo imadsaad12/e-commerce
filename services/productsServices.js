@@ -3,10 +3,10 @@ const { deleteImageFromGCP } = require("../utilities/GCP-images");
 
 const createProduct = async (data) => Products.create(data);
 
-const allProducts = async (category, type) => {
+const allProducts = async (category, type, getProductsWithHightPriority) => {
   let products;
-  if (category) {
-    products = await Products.find({ category, type });
+  if (category && type) {
+    products = await Products.find({ category, type, isHighPriority: true });
   } else {
     products = await Products.find();
   }
