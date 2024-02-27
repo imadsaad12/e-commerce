@@ -5,8 +5,10 @@ const createProduct = async (data) => Products.create(data);
 
 const allProducts = async (category, type, getProductsWithHightPriority) => {
   let products;
-  if (category && type) {
-    products = await Products.find({ category, type, isHighPriority: true });
+  if (getProductsWithHightPriority) {
+    products = await Products.find({ isHighPriority: true });
+  } else if (category && type) {
+    products = await Products.find({ category, type });
   } else {
     products = await Products.find();
   }

@@ -175,8 +175,11 @@ const sendEmail = async ({ email, products }) => {
                       }" />
                       <p style="font-weight: bold; margin-left: 30px;font-size: 14px;text-align: right;text-transform:capitalize">${
                         product.productName
-                      } x ${product.quantity}</p>
+                      } </p>
                     </td>
+                    <td style="font-weight: bold;text-align: center;">x ${
+                      product.quantity
+                    }</td>
                     <td style="font-weight: bold;text-align: center;">$${product.price.toFixed(
                       2
                     )}</td>

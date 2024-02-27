@@ -95,7 +95,7 @@ const getProduct = async (req, res) => {
     const { id } = req.params;
 
     const product = await getSingleProduct(id);
-    console.log(product);
+
     if (!product) {
       logger.error("No products found");
       throw makeError(NOT_FOUND_MESSAGE, NOT_FOUND);
