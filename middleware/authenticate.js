@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { makeError } = require("../utilities/errors");
 const { UNAUTHORIZED_MESSAGE } = require("../utilities/server-messages");
-const { UNAUTHORIZED } = require("../utilities/server-Statuses");
+const { UNAUTHORIZED } = require("../utilities/server-messages");
 
 const validateToken = (req, res, next) => {
   const { Authorization } = req.headers;

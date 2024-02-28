@@ -12,7 +12,6 @@ const authenticationRoutes = require("./routes/authenticationRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 const cookieParser = require("cookie-parser");
-const { AuthenticatedRouter } = require("./utilities/authenticated-route");
 const corsOptions = { credentials: true, origin: true };
 
 dotenv.config();
