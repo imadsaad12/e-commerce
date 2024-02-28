@@ -48,15 +48,15 @@ const signIn = async (req, res) => {
 
     logger.info(`Logged in successfully`);
 
-    res.status(SUCCESS);
     // res.cookie("refreshToken", refreshToken, {
     //   httpOnly: true,
     //   sameSite: "strict",
     // });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      sameSite: "strict",
+      sameSite: "none",
     });
+    res.status(SUCCESS);
     res.end();
   } catch (error) {
     logger.error(error);
