@@ -1,6 +1,6 @@
 const { makeError } = require("../utilities/errors");
 const logger = require("../utilities/logger");
-const { INTERNAL_SERVER } = require("../utilities/server-Statuses");
+const { INTERNAL_SERVER } = require("../utilities/server-statuses");
 const { INTERNAL_ERROR_MESSAGE } = require("../utilities/server-messages");
 
 // This is a centralized error handler that handle any error in any middleware

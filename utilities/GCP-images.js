@@ -1,6 +1,6 @@
 const { Storage } = require("@google-cloud/storage");
 const { makeError } = require("./errors");
-const { BAD_REQUEST } = require("./server-Statuses");
+const { BAD_REQUEST } = require("./server-statuses");
 
 const storage = new Storage({
   keyFilename: "database/ecommerce-413310-cfb062b4a357.json",
@@ -16,7 +16,7 @@ const uploadImageToGCP = async (files) => {
 
   const uploadPromises = files.map(async (file) => {
     const fileName = `${Date.now()}-${file.originalname}`;
-    
+
     const fileOptions = {
       metadata: {
         contentType: file.mimetype,

@@ -13,7 +13,7 @@ const {
   SUCCESS,
   UNAUTHORIZED,
   TOKEN_EXPIRED_OR_MISSED,
-} = require("../utilities/server-Statuses");
+} = require("../utilities/server-statuses");
 
 const signIn = async (req, res) => {
   try {

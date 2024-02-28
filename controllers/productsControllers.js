@@ -13,7 +13,7 @@ const {
   INTERNAL_SERVER,
   NOT_FOUND,
   SUCCESS_NO_CONTENT,
-} = require("../utilities/server-Statuses");
+} = require("../utilities/server-statuses");
 const {
   SUCCESS_MESSAGE,
   INTERNAL_ERROR_MESSAGE,
