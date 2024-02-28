@@ -12,7 +12,10 @@ const authenticationRoutes = require("./routes/authenticationRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
 const cookieParser = require("cookie-parser");
-const corsOptions = { credentials: true, origin: true };
+const corsOptions = {
+  credentials: true,
+  origin: ["https://ecommerce-frontend-9u70.onrender.com"],
+};
 
 dotenv.config();
 
