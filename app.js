@@ -30,9 +30,5 @@ app.use("/orders", ordersRoutes);
 app.use("/categories", categoriesRoutes);
 
 app.use(errorHandler);
-app.use(express.static("build"));
 
-app.get("*", function (req, res) {
-  res.sendFile(path.resolve(__dirname, "./build/index.html"));
-});
 app.listen(4000, () => logger.info("Server is running on port 4000 . . ."));
