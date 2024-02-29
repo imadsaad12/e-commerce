@@ -18,6 +18,7 @@ const corsOptions = {
     "https://ecommerce-frontend-9u70.onrender.com",
     "http://localhost:3000",
   ],
+  exposedHeaders: ["Set-Cookie"],
 };
 
 dotenv.config();
