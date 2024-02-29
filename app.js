@@ -21,8 +21,8 @@ dotenv.config();
 app.use(logApiHit);
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.use(cors());
+// app.options("*", cors(corsOptions));
 app.use(setAuthorizationHeader);
 connectToDatabase();
 
