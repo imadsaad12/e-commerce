@@ -11,17 +11,15 @@ const productsRoutes = require("./routes/productsRoutes");
 const authenticationRoutes = require("./routes/authenticationRoutes");
 const ordersRoutes = require("./routes/ordersRoutes");
 const categoriesRoutes = require("./routes/categoriesRoutes");
-const cookieParser = require("cookie-parser");
-const corsOptions = {
-  origin: ["https://pointnul.com", "http://localhost:3000"],
-};
+// const corsOptions = {
+//   origin: ["https://pointnul.com", "http://localhost:3000"],
+// };
 
 dotenv.config();
 
 app.use(logApiHit);
 app.use(express.json());
-app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(cors());
 // app.options("*", cors(corsOptions));
 connectToDatabase();
 
