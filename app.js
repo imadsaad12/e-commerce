@@ -14,7 +14,7 @@ const categoriesRoutes = require("./routes/categoriesRoutes");
 const cookieParser = require("cookie-parser");
 const corsOptions = {
   credentials: true,
-  origin: "https://ecommerce-frontend-9u70.onrender.com",
+  origin: "https://pointnul.com",
 };
 
 dotenv.config();

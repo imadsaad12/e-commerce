@@ -56,7 +56,7 @@ const signIn = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       sameSite: "none",
-      domain: ".onrender.com",
+      domain: "pointnul.com",
     });
 
     res.status(SUCCESS);
