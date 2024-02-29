@@ -52,13 +52,14 @@ const signIn = async (req, res) => {
     //   httpOnly: true,
     //   sameSite: "strict",
     // });
+
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      path: "/",
+      sameSite: "None",
       secure: true,
-      sameSite: "none",
-      domain: "https://ecommerce-frontend-9u70.onrender.com",
+      domain: "ecommerce-frontend-9u70.onrender.com",
     });
+
     res.status(SUCCESS);
     res.end();
   } catch (error) {
