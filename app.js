@@ -14,7 +14,6 @@ const categoriesRoutes = require("./routes/categoriesRoutes");
 const cookieParser = require("cookie-parser");
 const corsOptions = {
   credentials: true,
-  origin: "*",
 };
 
 dotenv.config();
