@@ -54,7 +54,9 @@ const signIn = async (req, res) => {
     // });
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
-      sameSite: "none",
+      sameSite: "None",
+      secure: true,
+      domain: "https://ecommerce-frontend-9u70.onrender.com",
     });
     res.status(SUCCESS);
     res.end();
