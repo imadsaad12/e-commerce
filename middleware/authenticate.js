@@ -4,12 +4,12 @@ const { UNAUTHORIZED_MESSAGE } = require("../utilities/server-messages");
 const { UNAUTHORIZED } = require("../utilities/server-messages");
 
 const validateToken = (req, res, next) => {
-  const { Authorization } = req.headers;
+  const { authorization } = req.headers;
 
-  if (!Authorization) {
+  if (!authorization) {
     return next(makeError(UNAUTHORIZED_MESSAGE, UNAUTHORIZED));
   }
-  const token = Authorization?.split(" ")[1];
+  const token = authorization?.split(" ")[1];
 
   const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
 

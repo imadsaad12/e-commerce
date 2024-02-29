@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const logger = require("../utilities/logger");
 const { makeError } = require("../utilities/errors");
-const { isEmpty, isEqual, isUndefined } = require("lodash");
+const { iisUndefined } = require("lodash");
 const {
   INTERNAL_ERROR_MESSAGE,
   INVALID_CREDENTIALS_MESSAGE,
@@ -18,11 +18,11 @@ const {
 const signIn = async (req, res) => {
   try {
     const { userName, password } = req.body;
-    console.log(process.env.SECRET_KEY);
 
     if (userName !== "super-admin" || password !== "Password@123") {
       throw makeError(INVALID_CREDENTIALS_MESSAGE, UNAUTHORIZED);
     }
+
     const currentDate = new Date();
 
     const expirationDate = new Date(currentDate);
@@ -38,26 +38,9 @@ const signIn = async (req, res) => {
       }
     );
 
-    // const refreshToken = jwt.sign(
-    //   { userName, role_id: 1 },
-    //   process.env.REFRESH_TOKEN_SECRET_KEY,
-    //   {
-    //     expiresIn: "365d",
-    //   }
-    // );
-
     logger.info(`Logged in successfully`);
 
-    // res.cookie("refreshToken", refreshToken, {
-    //   httpOnly: true,
-    //   sameSite: "strict",
-    // });
-
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true,
-      sameSite: "none",
-      domain: "pointnul.com",
-    });
+    res.json({ accessToken });
 
     res.status(SUCCESS);
     res.end();
@@ -73,11 +56,11 @@ const signIn = async (req, res) => {
 
 const validateToken = async (req, res) => {
   try {
-    if (!req?.headers?.Authorization)
+    if (!req?.headers?.authorization)
       throw makeError(INVALID_CREDENTIALS_MESSAGE, UNAUTHORIZED);
 
-    const { Authorization } = req.headers;
-    const accessToken = Authorization.split(" ")[1];
+    const { authorization } = req.headers;
+    const accessToken = authorization.split(" ")[1];
 
     jwt.verify(accessToken, process.env.SECRET_KEY);
 
