@@ -56,7 +56,6 @@ const signIn = async (req, res) => {
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       sameSite: "none",
-      secure: true,
       domain: ".onrender.com",
     });
 

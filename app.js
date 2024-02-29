@@ -14,11 +14,7 @@ const categoriesRoutes = require("./routes/categoriesRoutes");
 const cookieParser = require("cookie-parser");
 const corsOptions = {
   credentials: true,
-  origin: [
-    "https://ecommerce-frontend-9u70.onrender.com",
-    "http://localhost:3000",
-  ],
-  exposedHeaders: ["Set-Cookie"],
+  origin: "https://ecommerce-frontend-9u70.onrender.com",
 };
 
 dotenv.config();
