@@ -40,9 +40,8 @@ const signIn = async (req, res) => {
 
     logger.info(`Logged in successfully`);
 
-    res.json({ accessToken });
-
     res.status(SUCCESS);
+    res.json({ accessToken });
     res.end();
   } catch (error) {
     logger.error(error);

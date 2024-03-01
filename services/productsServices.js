@@ -7,6 +7,8 @@ const allProducts = async (category, type, getProductsWithHightPriority) => {
   let products;
   if (getProductsWithHightPriority) {
     products = await Products.find({ isHighPriority: true });
+  } else if (category === "*" && type) {
+    products = await Products.find({ type });
   } else if (category && type) {
     products = await Products.find({ category, type });
   } else {
