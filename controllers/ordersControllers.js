@@ -25,8 +25,25 @@ const { getSingleProduct } = require("../services/productsServices");
 const addOrder = async (req, res) => {
   try {
     const data = req.body;
-    const { email, products, totalPrice } = data;
+    const {
+      email,
+      products,
+      totalPrice,
+      region,
+      street,
+      building,
+      floor,
+      ...rest
+    } = data;
+
     let calculatedTotalPrice = 0;
+
+    const address = {
+      region,
+      street,
+      building,
+      floor,
+    };
 
     await Promise.all(
       products.map(async ({ productId, quantity }) => {
@@ -42,7 +59,7 @@ const addOrder = async (req, res) => {
       throw makeError("Prices does not match");
     }
 
-    await createOrder(data);
+    await createOrder({ address, ...data });
     await sendEmail({ email, products });
 
     logger.info("Order added successfully");

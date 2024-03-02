@@ -8,6 +8,8 @@ const productSchema = Joi.object({
   productName: Joi.string().required(),
   quantity: Joi.number().integer().min(1).required(),
   size: Joi.string().required(),
+  type: Joi.string().optional(),
+  category: Joi.string().optional(),
 });
 
 const addOrderSchema = {
