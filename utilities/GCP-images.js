@@ -3,7 +3,7 @@ const { makeError } = require("./errors");
 const { BAD_REQUEST } = require("./server-statuses");
 
 const storage = new Storage({
-  keyFilename: "database/ecommerce-413310-cfb062b4a357.json",
+  keyFilename: "database/pointnul-7b1daa175a2e.json",
   projectId: process.env.GCP_PROJECT_ID,
 });
 
