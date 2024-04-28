@@ -15,28 +15,36 @@ const sendEmail = async ({ email, products }) => {
   }
 
   let transporter;
-
-  if (provider === "gmail") {
-    transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: "imad.alhaj.saad@gmail.com",
-        pass: "wtnb wjaq cvui cmuo",
-      },
-    });
-  } else if (provider === "outlook") {
-    transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      port: 587,
-      secure: false,
-      auth: {
-        user: "adasd@outlook.com",
-        pass: "aaasd@#$",
-      },
-    });
-  } else {
-    throw new Error("Unsupported email provider");
-  }
+  transporter = nodemailer.createTransport({
+    host: "smtp.hostinger.com",
+    port: 465,
+    secure: true,
+    auth: {
+      user: "no-reply@pointnul.com",
+      pass: "Password@123",
+    },
+  });
+  // if (provider === "gmail") {
+  //   transporter = nodemailer.createTransport({
+  //     service: "gmail",
+  //     auth: {
+  //       user: "imad.alhaj.saad@gmail.com",
+  //       pass: "wtnb wjaq cvui cmuo",
+  //     },
+  //   });
+  // } else if (provider === "outlook") {
+  //   transporter = nodemailer.createTransport({
+  //     host: "smtp.office365.com",
+  //     port: 587,
+  //     secure: false,
+  //     auth: {
+  //       user: "adasd@outlook.com",
+  //       pass: "aaasd@#$",
+  //     },
+  //   });
+  // } else {
+  //   throw new Error("Unsupported email provider");
+  // }
 
   const generateDynamicHTML = (products) => `
   <html lang="en">
@@ -235,7 +243,7 @@ const sendEmail = async ({ email, products }) => {
   const htmlTemplate = generateDynamicHTML(products);
 
   const mailOptions = {
-    from: "imad.alhaj.saad@gmail.com",
+    from: "no-reply@pointnul.com",
     to: email,
     subject: "Your Order is on its way !!",
     html: htmlTemplate,
