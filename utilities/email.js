@@ -178,7 +178,7 @@ const sendEmail = async ({ email, products }) => {
                 <table>
                   <tr>
                     <td style="display: flex;flex-direction: row;justify-content: flex-start;align-items: center;">
-                      <img src="https://storage.googleapis.com/ecommerce-bucket-testing/${
+                      <img src="https://storage.googleapis.com/pointnul-image/${
                         product.productImage
                       }" />
                       <p style="font-weight: bold; margin-left: 30px;font-size: 14px;text-align: right;text-transform:capitalize">${
@@ -242,16 +242,24 @@ const sendEmail = async ({ email, products }) => {
 
   const htmlTemplate = generateDynamicHTML(products);
 
-  const mailOptions = {
+  const mailOptions1 = {
     from: "no-reply@pointnul.com",
     to: email,
     subject: "Your Order is on its way !!",
     html: htmlTemplate,
   };
+  const mailOptions2 = {
+    from: "no-reply@pointnul.com",
+    to: "no-reply@pointnul.com",
+    subject: "Your Order is on its way !!",
+    html: htmlTemplate,
+  };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+    const info1 = await transporter.sendMail(mailOptions1);
+    const info2 = await transporter.sendMail(mailOptions2);
+    console.log("Email sent:", info1.response);
+    console.log("Email sent:", info2.response);
   } catch (error) {
     console.error("Error:", error);
   }
