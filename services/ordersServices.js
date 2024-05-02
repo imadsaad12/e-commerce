@@ -5,11 +5,7 @@ const Products = require("../models/productModel");
 const createOrder = async (data) => Order.create(data);
 
 const allOrders = async (limit) => {
-  if (limit !== -1) {
-    return Order.find().sort({ createdAt: 1 }).limit(limit);
-  } else {
-    return Order.find().sort({ createdAt: 1 });
-  }
+  return Order.find().sort({ createdAt: 1 });
 };
 
 const getProfitsAndNumberOfProductsAndOrders = async () => {
