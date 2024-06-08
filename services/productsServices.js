@@ -26,7 +26,7 @@ const deleteProductById = async (_id) => {
     await deleteImageFromGCP(url);
   });
 
-  return Products.findOneAndDelete(_id);
+  return Products.findOneAndDelete({_id});
 };
 
 const updateProductById = async (id, data) =>
